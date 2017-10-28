@@ -30,30 +30,36 @@
         {
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.dgv_W_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_W_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.NeuronsUpDown = new System.Windows.Forms.NumericUpDown();
-            this.label2 = new System.Windows.Forms.Label();
             this.start_button = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.NeuronsUpDown = new System.Windows.Forms.NumericUpDown();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
             this.panel3 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label3 = new System.Windows.Forms.Label();
+            this.panel4 = new System.Windows.Forms.Panel();
+            this.label1 = new System.Windows.Forms.Label();
+            this.E_label = new System.Windows.Forms.Label();
+            this.E_min_txtbx = new System.Windows.Forms.TextBox();
+            this.radio_sin = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NeuronsUpDown)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.panel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            this.panel4.SuspendLayout();
             this.SuspendLayout();
             // 
             // panel1
@@ -83,41 +89,20 @@
             this.tableLayoutPanel1.Size = new System.Drawing.Size(974, 522);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
-            // pictureBox
-            // 
-            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.pictureBox.Location = new System.Drawing.Point(3, 3);
-            this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(751, 389);
-            this.pictureBox.TabIndex = 0;
-            this.pictureBox.TabStop = false;
-            // 
             // tableLayoutPanel2
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.dataGridView1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.panel4, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(760, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
-            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
+            this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.Size = new System.Drawing.Size(211, 389);
             this.tableLayoutPanel2.TabIndex = 1;
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
-            this.label1.Location = new System.Drawing.Point(3, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(205, 28);
-            this.label1.TabIndex = 0;
-            this.label1.Text = "Results";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // dataGridView1
             // 
@@ -127,10 +112,10 @@
             this.dgv_W_column,
             this.dgv_W_result});
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 31);
+            this.dataGridView1.Location = new System.Drawing.Point(3, 79);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(205, 355);
+            this.dataGridView1.Size = new System.Drawing.Size(205, 307);
             this.dataGridView1.TabIndex = 1;
             // 
             // dgv_W_column
@@ -154,12 +139,14 @@
             this.panel2.Size = new System.Drawing.Size(211, 121);
             this.panel2.TabIndex = 2;
             // 
-            // NeuronsUpDown
+            // start_button
             // 
-            this.NeuronsUpDown.Location = new System.Drawing.Point(3, 21);
-            this.NeuronsUpDown.Name = "NeuronsUpDown";
-            this.NeuronsUpDown.Size = new System.Drawing.Size(48, 20);
-            this.NeuronsUpDown.TabIndex = 0;
+            this.start_button.Location = new System.Drawing.Point(125, 90);
+            this.start_button.Name = "start_button";
+            this.start_button.Size = new System.Drawing.Size(83, 28);
+            this.start_button.TabIndex = 2;
+            this.start_button.Text = "Start";
+            this.start_button.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -170,14 +157,21 @@
             this.label2.TabIndex = 1;
             this.label2.Text = "Neurons";
             // 
-            // start_button
+            // NeuronsUpDown
             // 
-            this.start_button.Location = new System.Drawing.Point(125, 90);
-            this.start_button.Name = "start_button";
-            this.start_button.Size = new System.Drawing.Size(83, 28);
-            this.start_button.TabIndex = 2;
-            this.start_button.Text = "Start";
-            this.start_button.UseVisualStyleBackColor = true;
+            this.NeuronsUpDown.Location = new System.Drawing.Point(3, 21);
+            this.NeuronsUpDown.Name = "NeuronsUpDown";
+            this.NeuronsUpDown.Size = new System.Drawing.Size(48, 20);
+            this.NeuronsUpDown.TabIndex = 0;
+            // 
+            // pictureBox
+            // 
+            this.pictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.pictureBox.Location = new System.Drawing.Point(3, 3);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(751, 389);
+            this.pictureBox.TabIndex = 0;
+            this.pictureBox.TabStop = false;
             // 
             // panel3
             // 
@@ -198,6 +192,10 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.label3);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.radio_sin);
             this.splitContainer1.Size = new System.Drawing.Size(751, 121);
             this.splitContainer1.SplitterDistance = 25;
             this.splitContainer1.TabIndex = 0;
@@ -205,11 +203,64 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(352, 6);
+            this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label3.Location = new System.Drawing.Point(326, 1);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(49, 13);
+            this.label3.Size = new System.Drawing.Size(153, 20);
             this.label3.TabIndex = 2;
-            this.label3.Text = "Formulas";
+            this.label3.Text = "Formulas to learning";
+            // 
+            // panel4
+            // 
+            this.panel4.Controls.Add(this.E_min_txtbx);
+            this.panel4.Controls.Add(this.E_label);
+            this.panel4.Controls.Add(this.label1);
+            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panel4.Location = new System.Drawing.Point(3, 3);
+            this.panel4.Name = "panel4";
+            this.panel4.Size = new System.Drawing.Size(205, 70);
+            this.panel4.TabIndex = 2;
+            // 
+            // label1
+            // 
+            this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(64, 3);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(71, 24);
+            this.label1.TabIndex = 0;
+            this.label1.Text = "Results";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            // 
+            // E_label
+            // 
+            this.E_label.AutoSize = true;
+            this.E_label.Location = new System.Drawing.Point(3, 27);
+            this.E_label.Name = "E_label";
+            this.E_label.Size = new System.Drawing.Size(32, 13);
+            this.E_label.TabIndex = 1;
+            this.E_label.Text = "E=....";
+            // 
+            // E_min_txtbx
+            // 
+            this.E_min_txtbx.Location = new System.Drawing.Point(0, 44);
+            this.E_min_txtbx.Name = "E_min_txtbx";
+            this.E_min_txtbx.Size = new System.Drawing.Size(205, 20);
+            this.E_min_txtbx.TabIndex = 2;
+            // 
+            // radio_sin
+            // 
+            this.radio_sin.AutoSize = true;
+            this.radio_sin.Location = new System.Drawing.Point(4, 4);
+            this.radio_sin.Name = "radio_sin";
+            this.radio_sin.Size = new System.Drawing.Size(50, 17);
+            this.radio_sin.TabIndex = 0;
+            this.radio_sin.TabStop = true;
+            this.radio_sin.Text = "Sin X";
+            this.radio_sin.UseVisualStyleBackColor = true;
+            this.radio_sin.CheckedChanged += new System.EventHandler(this.radio_sin_CheckedChanged);
             // 
             // Form1
             // 
@@ -221,18 +272,21 @@
             this.Text = "Main Window";
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.tableLayoutPanel2.ResumeLayout(false);
-            this.tableLayoutPanel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.NeuronsUpDown)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.panel3.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            this.panel4.ResumeLayout(false);
+            this.panel4.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -243,7 +297,6 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_W_column;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_W_result;
@@ -254,6 +307,11 @@
         private System.Windows.Forms.Panel panel3;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.Panel panel4;
+        private System.Windows.Forms.Label E_label;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.TextBox E_min_txtbx;
+        private System.Windows.Forms.RadioButton radio_sin;
     }
 }
 
