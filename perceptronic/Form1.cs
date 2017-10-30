@@ -20,6 +20,14 @@ namespace perceptronic
 
         etalon_templ[] etalon = new etalon_templ[1000];
         etalon_templ[] result = new etalon_templ[1000];
+        double[] w_global = new double[1000];
+        double[] w_best = new double[1000];
+        double[] E_global = new double[1000];
+        double[] E_best = new double[1000];
+        double T_global = 0;
+        double T_best = 0;
+
+
         bool started = false;
         public Form1()
         {
@@ -33,7 +41,7 @@ namespace perceptronic
             {
                 double dobavl = this.pictureBox.Height / 2;
                 this.etalon[i].x = i;
-                this.etalon[i].y = Math.Sin(i*Math.PI/30)*100 + dobavl;
+                this.etalon[i].y = Math.Sin(i * Math.PI / 30) * 100 + dobavl;
             }
         }
 
@@ -54,7 +62,7 @@ namespace perceptronic
         private void timer_Tick(object sender, EventArgs e)
         {
             Graphics g = this.pictureBox.CreateGraphics();
-            Brush brsh = new SolidBrush(Color.FromArgb(5,255,255,255));
+            Brush brsh = new SolidBrush(Color.FromArgb(5, 255, 255, 255));
             Rectangle rct = new Rectangle(0, 0, this.pictureBox.Width, this.pictureBox.Height);
             g.FillRectangle(brsh, rct);
             if (started)
@@ -64,7 +72,7 @@ namespace perceptronic
             }
         }
 
-        void Draw_It(etalon_templ []eta, Color color_start , Color color_end)
+        void Draw_It(etalon_templ[] eta, Color color_start, Color color_end)
         {
             Graphics g = this.pictureBox.CreateGraphics();
             Brush br = new SolidBrush(color_start);
