@@ -32,7 +32,7 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.w_datagridview = new System.Windows.Forms.DataGridView();
             this.dgv_W_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.dgv_W_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
@@ -40,6 +40,8 @@
             this.E_label = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.alpha_txtbx = new System.Windows.Forms.TextBox();
+            this.label5 = new System.Windows.Forms.Label();
             this.SamplesUpDown = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.start_button = new System.Windows.Forms.Button();
@@ -52,12 +54,11 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radio_sin = new System.Windows.Forms.RadioButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.label5 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.reset_bttn = new System.Windows.Forms.Button();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.w_datagridview)).BeginInit();
             this.panel4.SuspendLayout();
             this.panel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SamplesUpDown)).BeginInit();
@@ -101,7 +102,7 @@
             // 
             this.tableLayoutPanel2.ColumnCount = 1;
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Controls.Add(this.dataGridView1, 0, 1);
+            this.tableLayoutPanel2.Controls.Add(this.w_datagridview, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel2.Location = new System.Drawing.Point(760, 3);
@@ -112,19 +113,19 @@
             this.tableLayoutPanel2.Size = new System.Drawing.Size(211, 389);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
-            // dataGridView1
+            // w_datagridview
             // 
-            this.dataGridView1.AllowUserToAddRows = false;
-            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.w_datagridview.AllowUserToAddRows = false;
+            this.w_datagridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.w_datagridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgv_W_column,
             this.dgv_W_result});
-            this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView1.Location = new System.Drawing.Point(3, 79);
-            this.dataGridView1.Name = "dataGridView1";
-            this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(205, 307);
-            this.dataGridView1.TabIndex = 1;
+            this.w_datagridview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.w_datagridview.Location = new System.Drawing.Point(3, 79);
+            this.w_datagridview.Name = "w_datagridview";
+            this.w_datagridview.RowHeadersVisible = false;
+            this.w_datagridview.Size = new System.Drawing.Size(205, 307);
+            this.w_datagridview.TabIndex = 1;
             // 
             // dgv_W_column
             // 
@@ -178,7 +179,8 @@
             // 
             // panel2
             // 
-            this.panel2.Controls.Add(this.textBox1);
+            this.panel2.Controls.Add(this.reset_bttn);
+            this.panel2.Controls.Add(this.alpha_txtbx);
             this.panel2.Controls.Add(this.label5);
             this.panel2.Controls.Add(this.SamplesUpDown);
             this.panel2.Controls.Add(this.label4);
@@ -190,6 +192,23 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(211, 121);
             this.panel2.TabIndex = 2;
+            // 
+            // alpha_txtbx
+            // 
+            this.alpha_txtbx.Location = new System.Drawing.Point(125, 20);
+            this.alpha_txtbx.Name = "alpha_txtbx";
+            this.alpha_txtbx.Size = new System.Drawing.Size(77, 20);
+            this.alpha_txtbx.TabIndex = 6;
+            this.alpha_txtbx.Text = "0.1";
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Location = new System.Drawing.Point(147, 4);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(34, 13);
+            this.label5.TabIndex = 5;
+            this.label5.Text = "Alpha";
             // 
             // SamplesUpDown
             // 
@@ -322,22 +341,15 @@
             this.timer.Enabled = true;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // label5
+            // reset_bttn
             // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(147, 4);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(34, 13);
-            this.label5.TabIndex = 5;
-            this.label5.Text = "Alpha";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(125, 20);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(77, 20);
-            this.textBox1.TabIndex = 6;
-            this.textBox1.Text = "0.1";
+            this.reset_bttn.Location = new System.Drawing.Point(0, 90);
+            this.reset_bttn.Name = "reset_bttn";
+            this.reset_bttn.Size = new System.Drawing.Size(83, 28);
+            this.reset_bttn.TabIndex = 7;
+            this.reset_bttn.Text = "Reset";
+            this.reset_bttn.UseVisualStyleBackColor = true;
+            this.reset_bttn.Click += new System.EventHandler(this.reset_bttn_Click);
             // 
             // Form1
             // 
@@ -350,7 +362,7 @@
             this.panel1.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.w_datagridview)).EndInit();
             this.panel4.ResumeLayout(false);
             this.panel4.PerformLayout();
             this.panel2.ResumeLayout(false);
@@ -375,7 +387,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.PictureBox pictureBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridView w_datagridview;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_W_column;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_W_result;
         private System.Windows.Forms.Panel panel2;
@@ -394,8 +406,9 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.RadioButton radioButton1;
         private System.Windows.Forms.Timer timer;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox alpha_txtbx;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button reset_bttn;
     }
 }
 
