@@ -40,6 +40,7 @@
             this.E_label = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.panel2 = new System.Windows.Forms.Panel();
+            this.reset_bttn = new System.Windows.Forms.Button();
             this.alpha_txtbx = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.SamplesUpDown = new System.Windows.Forms.NumericUpDown();
@@ -54,7 +55,9 @@
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radio_sin = new System.Windows.Forms.RadioButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.reset_bttn = new System.Windows.Forms.Button();
+            this.blending_UP_DOWN = new System.Windows.Forms.NumericUpDown();
+            this.label6 = new System.Windows.Forms.Label();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -69,6 +72,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.blending_UP_DOWN)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -84,7 +88,7 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 217F));
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 241F));
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.panel2, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.pictureBox, 0, 0);
@@ -93,8 +97,8 @@
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 2;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75.6705F));
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 24.3295F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 130F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(974, 522);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
@@ -105,17 +109,18 @@
             this.tableLayoutPanel2.Controls.Add(this.w_datagridview, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.panel4, 0, 0);
             this.tableLayoutPanel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel2.Location = new System.Drawing.Point(760, 3);
+            this.tableLayoutPanel2.Location = new System.Drawing.Point(736, 3);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             this.tableLayoutPanel2.RowCount = 2;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 76F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(211, 389);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(235, 386);
             this.tableLayoutPanel2.TabIndex = 1;
             // 
             // w_datagridview
             // 
             this.w_datagridview.AllowUserToAddRows = false;
+            this.w_datagridview.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
             this.w_datagridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.w_datagridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgv_W_column,
@@ -124,18 +129,20 @@
             this.w_datagridview.Location = new System.Drawing.Point(3, 79);
             this.w_datagridview.Name = "w_datagridview";
             this.w_datagridview.RowHeadersVisible = false;
-            this.w_datagridview.Size = new System.Drawing.Size(205, 307);
+            this.w_datagridview.Size = new System.Drawing.Size(229, 304);
             this.w_datagridview.TabIndex = 1;
             // 
             // dgv_W_column
             // 
             this.dgv_W_column.HeaderText = "W";
             this.dgv_W_column.Name = "dgv_W_column";
+            this.dgv_W_column.Width = 43;
             // 
             // dgv_W_result
             // 
             this.dgv_W_result.HeaderText = "result";
             this.dgv_W_result.Name = "dgv_W_result";
+            this.dgv_W_result.Width = 57;
             // 
             // panel4
             // 
@@ -145,14 +152,14 @@
             this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.panel4.Location = new System.Drawing.Point(3, 3);
             this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(205, 70);
+            this.panel4.Size = new System.Drawing.Size(229, 70);
             this.panel4.TabIndex = 2;
             // 
             // E_min_txtbx
             // 
             this.E_min_txtbx.Location = new System.Drawing.Point(0, 44);
             this.E_min_txtbx.Name = "E_min_txtbx";
-            this.E_min_txtbx.Size = new System.Drawing.Size(205, 20);
+            this.E_min_txtbx.Size = new System.Drawing.Size(226, 20);
             this.E_min_txtbx.TabIndex = 2;
             // 
             // E_label
@@ -179,6 +186,8 @@
             // 
             // panel2
             // 
+            this.panel2.Controls.Add(this.label6);
+            this.panel2.Controls.Add(this.blending_UP_DOWN);
             this.panel2.Controls.Add(this.reset_bttn);
             this.panel2.Controls.Add(this.alpha_txtbx);
             this.panel2.Controls.Add(this.label5);
@@ -188,23 +197,33 @@
             this.panel2.Controls.Add(this.label2);
             this.panel2.Controls.Add(this.NeuronsUpDown);
             this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel2.Location = new System.Drawing.Point(760, 398);
+            this.panel2.Location = new System.Drawing.Point(736, 395);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(211, 121);
+            this.panel2.Size = new System.Drawing.Size(235, 124);
             this.panel2.TabIndex = 2;
+            // 
+            // reset_bttn
+            // 
+            this.reset_bttn.Location = new System.Drawing.Point(0, 90);
+            this.reset_bttn.Name = "reset_bttn";
+            this.reset_bttn.Size = new System.Drawing.Size(83, 28);
+            this.reset_bttn.TabIndex = 7;
+            this.reset_bttn.Text = "Reset";
+            this.reset_bttn.UseVisualStyleBackColor = true;
+            this.reset_bttn.Click += new System.EventHandler(this.reset_bttn_Click);
             // 
             // alpha_txtbx
             // 
-            this.alpha_txtbx.Location = new System.Drawing.Point(125, 20);
+            this.alpha_txtbx.Location = new System.Drawing.Point(3, 64);
             this.alpha_txtbx.Name = "alpha_txtbx";
-            this.alpha_txtbx.Size = new System.Drawing.Size(77, 20);
+            this.alpha_txtbx.Size = new System.Drawing.Size(229, 20);
             this.alpha_txtbx.TabIndex = 6;
             this.alpha_txtbx.Text = "0.1";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(147, 4);
+            this.label5.Location = new System.Drawing.Point(6, 48);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(34, 13);
             this.label5.TabIndex = 5;
@@ -238,7 +257,7 @@
             // 
             // start_button
             // 
-            this.start_button.Location = new System.Drawing.Point(125, 90);
+            this.start_button.Location = new System.Drawing.Point(149, 90);
             this.start_button.Name = "start_button";
             this.start_button.Size = new System.Drawing.Size(83, 28);
             this.start_button.TabIndex = 2;
@@ -273,7 +292,7 @@
             this.pictureBox.Location = new System.Drawing.Point(0, 0);
             this.pictureBox.Margin = new System.Windows.Forms.Padding(0);
             this.pictureBox.Name = "pictureBox";
-            this.pictureBox.Size = new System.Drawing.Size(757, 395);
+            this.pictureBox.Size = new System.Drawing.Size(733, 392);
             this.pictureBox.TabIndex = 0;
             this.pictureBox.TabStop = false;
             // 
@@ -281,9 +300,9 @@
             // 
             this.panel3.Controls.Add(this.splitContainer1);
             this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel3.Location = new System.Drawing.Point(3, 398);
+            this.panel3.Location = new System.Drawing.Point(3, 395);
             this.panel3.Name = "panel3";
-            this.panel3.Size = new System.Drawing.Size(751, 121);
+            this.panel3.Size = new System.Drawing.Size(727, 124);
             this.panel3.TabIndex = 3;
             // 
             // splitContainer1
@@ -299,9 +318,10 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.radioButton2);
             this.splitContainer1.Panel2.Controls.Add(this.radioButton1);
             this.splitContainer1.Panel2.Controls.Add(this.radio_sin);
-            this.splitContainer1.Size = new System.Drawing.Size(751, 121);
+            this.splitContainer1.Size = new System.Drawing.Size(727, 124);
             this.splitContainer1.SplitterDistance = 25;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -320,10 +340,11 @@
             this.radioButton1.AutoSize = true;
             this.radioButton1.Location = new System.Drawing.Point(4, 28);
             this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(85, 17);
+            this.radioButton1.Size = new System.Drawing.Size(90, 17);
             this.radioButton1.TabIndex = 1;
-            this.radioButton1.Text = "radioButton1";
+            this.radioButton1.Text = "Sin X + Cos X";
             this.radioButton1.UseVisualStyleBackColor = true;
+            this.radioButton1.CheckedChanged += new System.EventHandler(this.radioButton1_CheckedChanged);
             // 
             // radio_sin
             // 
@@ -339,17 +360,46 @@
             // timer
             // 
             this.timer.Enabled = true;
+            this.timer.Interval = 10;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // reset_bttn
+            // blending_UP_DOWN
             // 
-            this.reset_bttn.Location = new System.Drawing.Point(0, 90);
-            this.reset_bttn.Name = "reset_bttn";
-            this.reset_bttn.Size = new System.Drawing.Size(83, 28);
-            this.reset_bttn.TabIndex = 7;
-            this.reset_bttn.Text = "Reset";
-            this.reset_bttn.UseVisualStyleBackColor = true;
-            this.reset_bttn.Click += new System.EventHandler(this.reset_bttn_Click);
+            this.blending_UP_DOWN.Location = new System.Drawing.Point(182, 21);
+            this.blending_UP_DOWN.Maximum = new decimal(new int[] {
+            255,
+            0,
+            0,
+            0});
+            this.blending_UP_DOWN.Name = "blending_UP_DOWN";
+            this.blending_UP_DOWN.Size = new System.Drawing.Size(44, 20);
+            this.blending_UP_DOWN.TabIndex = 8;
+            this.blending_UP_DOWN.Value = new decimal(new int[] {
+            20,
+            0,
+            0,
+            0});
+            this.blending_UP_DOWN.ValueChanged += new System.EventHandler(this.blending_UP_DOWN_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(179, 4);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(43, 13);
+            this.label6.TabIndex = 9;
+            this.label6.Text = "Smooth";
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Location = new System.Drawing.Point(4, 51);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(131, 17);
+            this.radioButton2.TabIndex = 2;
+            this.radioButton2.Text = "(Sin X + Cos X )*Sin2X";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
             // 
             // Form1
             // 
@@ -377,6 +427,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.blending_UP_DOWN)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -409,6 +460,9 @@
         private System.Windows.Forms.TextBox alpha_txtbx;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button reset_bttn;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.NumericUpDown blending_UP_DOWN;
+        private System.Windows.Forms.RadioButton radioButton2;
     }
 }
 
