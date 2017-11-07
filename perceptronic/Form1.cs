@@ -27,7 +27,7 @@ namespace perceptronic
         bool started = false;
         double alpha = 0.1;
         double E = double.MaxValue;
-        int blending = 20;
+        int blending = 51;
 
         public Form1()
         {
@@ -40,7 +40,7 @@ namespace perceptronic
             this.alpha = Convert.ToDouble(alpha_txtbx.Text);
             this.samples = (int)SamplesUpDown.Value;
             this.blending = Convert.ToInt32(blending_UP_DOWN.Value);
-            for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 0.2;
+            for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
             for (int i = 0; i < this.etalon.Length; i++)
             {
                 this.etalon[i].x = i;
@@ -82,7 +82,7 @@ namespace perceptronic
                 this.alpha = Convert.ToDouble(alpha_txtbx.Text);
                 this.samples = (int)SamplesUpDown.Value;
                 this.E = double.MaxValue;
-                for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1/Convert.ToDouble(NeuronsUpDown.Value);
+                for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
                 for (int i = 0; i < this.etalon.Length; i++)
                 {
                     this.etalon[i].x = i;
@@ -103,13 +103,13 @@ namespace perceptronic
             Brush brsh = new SolidBrush(Color.FromArgb(this.blending, 255, 255, 255));
             Rectangle rct = new Rectangle(0, 0, this.pictureBox.Width, this.pictureBox.Height);
             g.FillRectangle(brsh, rct);
-            if (started)
+            if (this.started)
             {
                 Learn_It();
-                Draw_It(etalon, Color.Blue, Color.Aqua);
-                Draw_It(result, Color.Red, Color.Red);
             }
             W_Grid_Update();
+            Draw_It(etalon, Color.Blue, Color.Aqua);
+            Draw_It(result, Color.Red, Color.Red);
             E_label.Text = ("E=" + E_Calc().ToString());
         }
 
@@ -168,8 +168,8 @@ namespace perceptronic
                 double e_new = E_Calc();
                 for (int ii = 0; ii < w_size; ii++)
                 {
-                    this.w[ii] = this.w[ii] - (this.alpha * delta * this.etalon[i + ii].y)/w_size;
-                    
+                    this.w[ii] = this.w[ii] - (this.alpha * delta * this.etalon[i + ii].y) / w_size;
+
                     e_new = E_Calc();/*
                     if ((e_new) == this.E)
                     {
@@ -193,30 +193,30 @@ namespace perceptronic
                     }
 
     */
-                    if ((Double.IsNaN(this.w[ii])) || (Double.IsInfinity(this.w[ii])) || (this.w[ii]==0)) this.w[ii] -= rnd.NextDouble();
+                    if ((Double.IsNaN(this.w[ii])) || (Double.IsInfinity(this.w[ii])) || (this.w[ii] == 0)) this.w[ii] -= rnd.NextDouble();
                 }
                 this.T = T + this.alpha * delta;
 
                 e_new = E_Calc();
                 if ((e_new) == this.E)
                 {
-                    this.alpha /= 1.000000001;
+                    this.alpha /= (1.0 + ((e_new>100? 1: e_new) / 10000));
                     this.alpha_txtbx.Text = this.alpha.ToString();
                 }
 
                 if ((e_new) > this.E)
                 {
                     this.T = T - this.alpha * delta;
-                    this.alpha *= 1.0001;
+                    this.alpha *= (1.0 + ((e_new > 100 ? 1 : e_new) / 10000));
                     this.alpha_txtbx.Text = this.alpha.ToString();
                     this.E = e_new;
                 }
 
                 if ((e_new) < this.E)
                 {
-                    this.alpha /= 1.0001;
-                    this.alpha_txtbx.Text = this.alpha.ToString();
                     this.E = e_new;
+                    this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 70000));
+                   this.alpha_txtbx.Text = this.alpha.ToString();
                 }
 
 
@@ -279,18 +279,17 @@ namespace perceptronic
 
         private void reset_bttn_Click(object sender, EventArgs e)
         {
-            this.etalon = new etalon_templ[total_elements];
+            //this.etalon = new etalon_templ[total_elements];
             this.result = new etalon_templ[total_elements];
             this.w = new double[Convert.ToInt32(NeuronsUpDown.Value)];
             this.alpha = Convert.ToDouble(alpha_txtbx.Text);
-            for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 0.2;
+            for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
             for (int i = 0; i < this.etalon.Length; i++)
             {
                 this.etalon[i].x = i;
                 this.result[i].x = i;
-                this.result[i].y = 0;
+                //this.result[i].y = 0;
             }
-
         }
 
         private double E_Calc()
@@ -319,7 +318,7 @@ namespace perceptronic
             {
                 this.etalon[i].x = i;
                 this.result[i].x = i;
-                this.etalon[i].y = (Math.Sin(i * Math.PI / 10) + Math.Cos(i * Math.PI / 13)) ;
+                this.etalon[i].y = (Math.Sin(i * Math.PI / 10) + Math.Cos(i * Math.PI / 13));
             }
         }
 
@@ -332,6 +331,12 @@ namespace perceptronic
                 this.result[i].x = i;
                 this.etalon[i].y = (Math.Sin(i * Math.PI / 10) + Math.Cos(i * Math.PI / 13)) * Math.Sin(i * Math.PI / 5);
             }
+        }
+
+        private void NeuronsUpDown_ValueChanged(object sender, EventArgs e)
+        {
+            this.w = new double[Convert.ToInt32(NeuronsUpDown.Value)];
+            for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
         }
     }
 }

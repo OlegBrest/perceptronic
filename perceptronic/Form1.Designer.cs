@@ -285,6 +285,7 @@
             0,
             0,
             0});
+            this.NeuronsUpDown.ValueChanged += new System.EventHandler(this.NeuronsUpDown_ValueChanged);
             // 
             // pictureBox
             // 
@@ -375,7 +376,7 @@
             this.blending_UP_DOWN.Size = new System.Drawing.Size(44, 20);
             this.blending_UP_DOWN.TabIndex = 8;
             this.blending_UP_DOWN.Value = new decimal(new int[] {
-            20,
+            51,
             0,
             0,
             0});
