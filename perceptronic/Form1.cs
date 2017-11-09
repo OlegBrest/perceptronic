@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,12 +22,16 @@ namespace perceptronic
         int total_elements = 1000;
         etalon_templ[] etalon;
         etalon_templ[] result;
+        etalon_templ[] result_best;
         double[] w;
+        double[] w_best;
         double T;
+        double T_best;
         int samples = 180;
         bool started = false;
         double alpha = 0.1;
         double E = double.MaxValue;
+        double E_best = double.MaxValue;
         int blending = 51;
 
         public Form1()
@@ -34,17 +39,24 @@ namespace perceptronic
 
             this.etalon = new etalon_templ[total_elements];
             this.result = new etalon_templ[total_elements];
+            this.result_best = new etalon_templ[total_elements];
 
             InitializeComponent();
             this.w = new double[Convert.ToInt32(NeuronsUpDown.Value)];
+            this.w_best = new double[Convert.ToInt32(NeuronsUpDown.Value)];
             this.alpha = Convert.ToDouble(alpha_txtbx.Text);
             this.samples = (int)SamplesUpDown.Value;
             this.blending = Convert.ToInt32(blending_UP_DOWN.Value);
-            for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
+            for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++)
+            {
+                this.w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
+                this.w_best[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
+            }
             for (int i = 0; i < this.etalon.Length; i++)
             {
                 this.etalon[i].x = i;
                 this.result[i].x = i;
+                this.result_best[i].x = i;
             }
 
         }
@@ -56,6 +68,7 @@ namespace perceptronic
             {
                 this.etalon[i].x = i;
                 this.result[i].x = i;
+                this.result_best[i].x = i;
                 this.etalon[i].y = Math.Sin(i * Math.PI / 30);
             }
         }
@@ -66,9 +79,13 @@ namespace perceptronic
             {
                 this.etalon[i].x = i;
                 this.result[i].x = i;
+                this.result_best[i].x = i;
                 this.etalon[i].y = 0;
                 this.result[i].y = 0;
+                this.result_best[i].y = 0;
             }
+            this.T = 0;
+            this.T_best = 0;
         }
 
         private void start_button_Click(object sender, EventArgs e)
@@ -78,16 +95,24 @@ namespace perceptronic
             {
                 this.start_button.Text = "Stop";
                 this.w = new double[Convert.ToInt32(NeuronsUpDown.Value)];
+                this.w_best = new double[Convert.ToInt32(NeuronsUpDown.Value)];
                 this.T = 0;
+                this.T_best = 0;
+                this.E_best = double.MaxValue;
                 this.alpha = Convert.ToDouble(alpha_txtbx.Text);
                 this.samples = (int)SamplesUpDown.Value;
                 this.E = double.MaxValue;
-                for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
+                for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++)
+                {
+                    this.w_best[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
+                    this.w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
+                }
                 for (int i = 0; i < this.etalon.Length; i++)
                 {
                     this.etalon[i].x = i;
                     this.result[i].x = i;
                     this.result[i].y = 0;
+                    this.result_best[i].y = 0;
                 }
 
             }
@@ -110,12 +135,24 @@ namespace perceptronic
             W_Grid_Update();
             Draw_It(etalon, Color.Blue, Color.Aqua);
             Draw_It(result, Color.Red, Color.Red);
+            Draw_It(result_best, Color.DarkGreen, Color.Green);
             E_label.Text = ("E=" + E_Calc().ToString());
+            E_best_label.Text = ("E_best=" + this.E_best);
         }
 
         void Draw_It(etalon_templ[] eta, Color color_start, Color color_end)
         {
             double dobavl = this.pictureBox.Height / 2;
+            double min_val = Double.MaxValue;
+            double max_val = Double.MinValue;
+            foreach (etalon_templ yy in eta)
+            {
+                if (min_val > yy.y) min_val = yy.y;
+                if (max_val < yy.y) max_val = yy.y;
+            }
+            double delta = (max_val - min_val);
+            double median = (max_val + min_val) / 2;
+            double corr = dobavl / (delta == 0 ? 1 : delta);
             Graphics g = this.pictureBox.CreateGraphics();
             Brush br = new SolidBrush(color_start);
             Pen p = new Pen(br);
@@ -129,8 +166,8 @@ namespace perceptronic
                     p = new Pen(br);
                 }
                 new_point.X = (int)eta[i].x;
-                double y = eta[i].y;
-                y = y * 100 + dobavl;
+                double y = (median - eta[i].y);
+                y = y * corr + dobavl;
                 y = y < 0 ? 0 : y > this.pictureBox.Height ? this.pictureBox.Height : y;
                 if ((y < int.MaxValue) && (y > int.MinValue))
                 { }
@@ -200,7 +237,7 @@ namespace perceptronic
                 e_new = E_Calc();
                 if ((e_new) == this.E)
                 {
-                    this.alpha /= (1.0 + ((e_new>100? 1: e_new) / 10000));
+                    this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 10000));
                     this.alpha_txtbx.Text = this.alpha.ToString();
                 }
 
@@ -216,9 +253,31 @@ namespace perceptronic
                 {
                     this.E = e_new;
                     this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 70000));
-                   this.alpha_txtbx.Text = this.alpha.ToString();
+                    this.alpha_txtbx.Text = this.alpha.ToString();
                 }
 
+                if ((e_new) < this.E_best)
+                {
+                    double[] x_best = new double[w_size];
+                    for (int ii = 0; ii < w_size; ii++)
+                    {
+                        this.result_best[ii].y = this.etalon[ii].y;
+                        this.w_best[ii] = this.w[ii];
+                    }
+                    this.E_best = e_new;
+                    this.T_best = T;
+
+                    for (int s = w_size; s < this.total_elements; s++)
+                    {
+                        for (int ii = 0; ii < w_size; ii++)
+                        {
+                            x_best[ii] = this.result_best[ii + s - w_size].y;
+                        }
+                        this.result_best[s].x = this.etalon[s].x;
+                        double next_b = Get_Next(x_best);
+                        this.result_best[s].y = next_b;
+                    }
+                }
 
                 if ((Double.IsNaN(this.T)) || (Double.IsInfinity(this.T))) this.T = 0;
                 next = Get_Next(x_es);
@@ -264,7 +323,7 @@ namespace perceptronic
                 }
                 for (int i = 0; i < w_count; i++)
                 {
-                    this.w_datagridview.Rows.Add(i, this.w[i]);
+                    this.w_datagridview.Rows.Add(i, this.w[i],this.w_best[i]);
                 }
             }
             else
@@ -272,6 +331,7 @@ namespace perceptronic
                 for (int i = 0; i < w_count; i++)
                 {
                     this.w_datagridview.Rows[i].Cells[1].Value = this.w[i];
+                    this.w_datagridview.Rows[i].Cells[2].Value = this.w_best[i];
                 }
             }
             this.w_datagridview.Update();
@@ -282,7 +342,9 @@ namespace perceptronic
             //this.etalon = new etalon_templ[total_elements];
             this.result = new etalon_templ[total_elements];
             this.w = new double[Convert.ToInt32(NeuronsUpDown.Value)];
+            this.w_best = new double[Convert.ToInt32(NeuronsUpDown.Value)];
             this.alpha = Convert.ToDouble(alpha_txtbx.Text);
+            this.E_best = double.MaxValue;
             for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
             for (int i = 0; i < this.etalon.Length; i++)
             {
@@ -336,7 +398,41 @@ namespace perceptronic
         private void NeuronsUpDown_ValueChanged(object sender, EventArgs e)
         {
             this.w = new double[Convert.ToInt32(NeuronsUpDown.Value)];
+            this.w_best = new double[Convert.ToInt32(NeuronsUpDown.Value)];
             for (int i = 0; i < Convert.ToInt32(NeuronsUpDown.Value); i++) w[i] = 1 / Convert.ToDouble(NeuronsUpDown.Value);
+        }
+
+        private void File_radio_CheckedChanged(object sender, EventArgs e)
+        {
+            if (File_radio.Checked) this.Open_File_Bttn.Enabled = true;
+            else this.Open_File_Bttn.Enabled = false;
+        }
+
+        private void Open_File_Bttn_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = this.openFileDialog.ShowDialog();
+            if (dr == DialogResult.OK)
+            {
+                string filename = this.openFileDialog.FileName;
+                string[] lines = File.ReadAllLines(filename);
+                Etalon_Clean();
+                if ((lines.Length - 1) <= this.total_elements)
+                {
+                    for (int i = 1; i < lines.Length; i++)
+                    {
+                        string[] cells = lines[i].Split('\t');
+                        this.etalon[i - 1].y = Convert.ToDouble(cells[2]);
+                    }
+                }
+                else
+                {
+                    for (int i = 0; i < this.total_elements; i++)
+                    {
+                        string[] cells = lines[i + 1].Split('\t');
+                        this.etalon[i].y = Convert.ToDouble(cells[2]);
+                    }
+                }
+            }
         }
     }
 }
