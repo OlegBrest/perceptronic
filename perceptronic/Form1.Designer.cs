@@ -33,7 +33,11 @@
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.w_datagridview = new System.Windows.Forms.DataGridView();
+            this.dgv_W_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.dgv_W_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.best_W_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel4 = new System.Windows.Forms.Panel();
+            this.E_best_label = new System.Windows.Forms.Label();
             this.E_min_txtbx = new System.Windows.Forms.TextBox();
             this.E_label = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -52,17 +56,15 @@
             this.panel3 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.label3 = new System.Windows.Forms.Label();
+            this.Open_File_Bttn = new System.Windows.Forms.Button();
             this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.File_radio = new System.Windows.Forms.RadioButton();
             this.radioButton1 = new System.Windows.Forms.RadioButton();
             this.radio_sin = new System.Windows.Forms.RadioButton();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.File_radio = new System.Windows.Forms.RadioButton();
-            this.Open_File_Bttn = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.E_best_label = new System.Windows.Forms.Label();
-            this.dgv_W_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dgv_W_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.best_W_column = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.smooth_type_bx = new System.Windows.Forms.ComboBox();
+            this.smooth_type_lvl = new System.Windows.Forms.NumericUpDown();
             this.panel1.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.tableLayoutPanel2.SuspendLayout();
@@ -78,6 +80,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.smooth_type_lvl)).BeginInit();
             this.SuspendLayout();
             // 
             // panel1
@@ -138,6 +141,24 @@
             this.w_datagridview.Size = new System.Drawing.Size(229, 289);
             this.w_datagridview.TabIndex = 1;
             // 
+            // dgv_W_column
+            // 
+            this.dgv_W_column.HeaderText = "W";
+            this.dgv_W_column.Name = "dgv_W_column";
+            this.dgv_W_column.Width = 43;
+            // 
+            // dgv_W_result
+            // 
+            this.dgv_W_result.HeaderText = "result";
+            this.dgv_W_result.Name = "dgv_W_result";
+            this.dgv_W_result.Width = 57;
+            // 
+            // best_W_column
+            // 
+            this.best_W_column.HeaderText = "Best_W";
+            this.best_W_column.Name = "best_W_column";
+            this.best_W_column.Width = 70;
+            // 
             // panel4
             // 
             this.panel4.Controls.Add(this.E_best_label);
@@ -149,6 +170,15 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(229, 85);
             this.panel4.TabIndex = 2;
+            // 
+            // E_best_label
+            // 
+            this.E_best_label.AutoSize = true;
+            this.E_best_label.Location = new System.Drawing.Point(3, 67);
+            this.E_best_label.Name = "E_best_label";
+            this.E_best_label.Size = new System.Drawing.Size(58, 13);
+            this.E_best_label.TabIndex = 3;
+            this.E_best_label.Text = "E_best=....";
             // 
             // E_min_txtbx
             // 
@@ -341,6 +371,8 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.smooth_type_lvl);
+            this.splitContainer1.Panel2.Controls.Add(this.smooth_type_bx);
             this.splitContainer1.Panel2.Controls.Add(this.Open_File_Bttn);
             this.splitContainer1.Panel2.Controls.Add(this.radioButton2);
             this.splitContainer1.Panel2.Controls.Add(this.File_radio);
@@ -360,6 +392,17 @@
             this.label3.TabIndex = 2;
             this.label3.Text = "Formulas to learning";
             // 
+            // Open_File_Bttn
+            // 
+            this.Open_File_Bttn.Enabled = false;
+            this.Open_File_Bttn.Location = new System.Drawing.Point(148, 69);
+            this.Open_File_Bttn.Name = "Open_File_Bttn";
+            this.Open_File_Bttn.Size = new System.Drawing.Size(27, 23);
+            this.Open_File_Bttn.TabIndex = 3;
+            this.Open_File_Bttn.Text = "...";
+            this.Open_File_Bttn.UseVisualStyleBackColor = true;
+            this.Open_File_Bttn.Click += new System.EventHandler(this.Open_File_Bttn_Click);
+            // 
             // radioButton2
             // 
             this.radioButton2.AutoSize = true;
@@ -370,6 +413,17 @@
             this.radioButton2.Text = "(Sin X + Cos X )*Sin2X";
             this.radioButton2.UseVisualStyleBackColor = true;
             this.radioButton2.CheckedChanged += new System.EventHandler(this.radioButton2_CheckedChanged);
+            // 
+            // File_radio
+            // 
+            this.File_radio.AutoSize = true;
+            this.File_radio.Location = new System.Drawing.Point(4, 74);
+            this.File_radio.Name = "File_radio";
+            this.File_radio.Size = new System.Drawing.Size(148, 17);
+            this.File_radio.TabIndex = 1;
+            this.File_radio.Text = "From .CSV file forex import";
+            this.File_radio.UseVisualStyleBackColor = true;
+            this.File_radio.CheckedChanged += new System.EventHandler(this.File_radio_CheckedChanged);
             // 
             // radioButton1
             // 
@@ -399,59 +453,31 @@
             this.timer.Interval = 10;
             this.timer.Tick += new System.EventHandler(this.timer_Tick);
             // 
-            // File_radio
-            // 
-            this.File_radio.AutoSize = true;
-            this.File_radio.Location = new System.Drawing.Point(4, 74);
-            this.File_radio.Name = "File_radio";
-            this.File_radio.Size = new System.Drawing.Size(148, 17);
-            this.File_radio.TabIndex = 1;
-            this.File_radio.Text = "From .CSV file forex import";
-            this.File_radio.UseVisualStyleBackColor = true;
-            this.File_radio.CheckedChanged += new System.EventHandler(this.File_radio_CheckedChanged);
-            // 
-            // Open_File_Bttn
-            // 
-            this.Open_File_Bttn.Enabled = false;
-            this.Open_File_Bttn.Location = new System.Drawing.Point(148, 69);
-            this.Open_File_Bttn.Name = "Open_File_Bttn";
-            this.Open_File_Bttn.Size = new System.Drawing.Size(27, 23);
-            this.Open_File_Bttn.TabIndex = 3;
-            this.Open_File_Bttn.Text = "...";
-            this.Open_File_Bttn.UseVisualStyleBackColor = true;
-            this.Open_File_Bttn.Click += new System.EventHandler(this.Open_File_Bttn_Click);
-            // 
             // openFileDialog
             // 
             this.openFileDialog.FileName = "*.csv";
             this.openFileDialog.Filter = "exported (*.csv)|*.csv";
             // 
-            // E_best_label
+            // smooth_type_bx
             // 
-            this.E_best_label.AutoSize = true;
-            this.E_best_label.Location = new System.Drawing.Point(3, 67);
-            this.E_best_label.Name = "E_best_label";
-            this.E_best_label.Size = new System.Drawing.Size(58, 13);
-            this.E_best_label.TabIndex = 3;
-            this.E_best_label.Text = "E_best=....";
+            this.smooth_type_bx.Enabled = false;
+            this.smooth_type_bx.FormattingEnabled = true;
+            this.smooth_type_bx.Items.AddRange(new object[] {
+            "None",
+            "Smooth",
+            "Digital"});
+            this.smooth_type_bx.Location = new System.Drawing.Point(182, 69);
+            this.smooth_type_bx.Name = "smooth_type_bx";
+            this.smooth_type_bx.Size = new System.Drawing.Size(121, 21);
+            this.smooth_type_bx.TabIndex = 4;
             // 
-            // dgv_W_column
+            // smooth_type_lvl
             // 
-            this.dgv_W_column.HeaderText = "W";
-            this.dgv_W_column.Name = "dgv_W_column";
-            this.dgv_W_column.Width = 43;
-            // 
-            // dgv_W_result
-            // 
-            this.dgv_W_result.HeaderText = "result";
-            this.dgv_W_result.Name = "dgv_W_result";
-            this.dgv_W_result.Width = 57;
-            // 
-            // best_W_column
-            // 
-            this.best_W_column.HeaderText = "Best_W";
-            this.best_W_column.Name = "best_W_column";
-            this.best_W_column.Width = 70;
+            this.smooth_type_lvl.Enabled = false;
+            this.smooth_type_lvl.Location = new System.Drawing.Point(310, 69);
+            this.smooth_type_lvl.Name = "smooth_type_lvl";
+            this.smooth_type_lvl.Size = new System.Drawing.Size(44, 20);
+            this.smooth_type_lvl.TabIndex = 5;
             // 
             // Form1
             // 
@@ -480,6 +506,7 @@
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.smooth_type_lvl)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -520,6 +547,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_W_column;
         private System.Windows.Forms.DataGridViewTextBoxColumn dgv_W_result;
         private System.Windows.Forms.DataGridViewTextBoxColumn best_W_column;
+        private System.Windows.Forms.NumericUpDown smooth_type_lvl;
+        private System.Windows.Forms.ComboBox smooth_type_bx;
     }
 }
 
