@@ -216,37 +216,39 @@ namespace perceptronic
                 double e_new = E_Calc();
                 for (int ii = 0; ii < w_size; ii++)
                 {
+                    this.E = e_new;
                     double incr = (this.alpha * delta * this.etalon[i + ii].y) / w_size;
+                    //double old_w = this.w[ii];
+                    //double old_y = this.result[i].y;
                     this.w[ii] = this.w[ii] - incr;
                     this.result[i].y = next;
 
-                    e_new = E_Calc();
-                    if ((e_new) == this.E)
-                    {
-                        if ((e_new < 1) && (this.alpha > 0.01)) this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 100000));
-                        this.alpha_txtbx.Text = this.alpha.ToString();
-                    }
-                    
-                    if ((e_new) > this.E)
-                    {
-                        this.w[ii] = this.w[ii] + incr;
-                        next = Get_Next(x_es, this.T);
-                        this.result[i].y = next;
-                        e_new = E_Calc();
-                        this.E = e_new;
-                        if ((e_new < 1) && (this.alpha < 0.7)) this.alpha *= (1.0 + ((e_new > 100 ? 1 : e_new) / 100000));
-                        this.alpha_txtbx.Text = this.alpha.ToString();
-                    }
-                    
-                    if ((e_new) < this.E)
-                    {
-                        if ((e_new < 1) && (this.alpha > 0.01)) this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 700000));
-                        this.alpha_txtbx.Text = this.alpha.ToString();
-                        this.E = e_new;
-                    }
+                    /*   e_new = E_Calc();
+                       if ((e_new) == this.E)
+                       {
+                           if ((e_new < 1) && (this.alpha > 0.01)) this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 100000));
+                           this.alpha_txtbx.Text = this.alpha.ToString();
+                       }
 
-    
-                    if ((Double.IsNaN(this.w[ii])) || (Double.IsInfinity(this.w[ii])) || (this.w[ii] == 0)) this.w[ii] -= rnd.NextDouble();
+                       if ((e_new) > this.E)
+                       {
+                           /*this.w[ii] = old_w;
+                           this.result[i].y = old_y;
+                           e_new = E_Calc();
+                           this.E = e_new;
+                           if ((e_new < 1) && (this.alpha < 0.7)) this.alpha *= (1.0 + ((e_new > 100 ? 1 : e_new) / 100000));
+                           this.alpha_txtbx.Text = this.alpha.ToString();
+                       }
+
+                       if ((e_new) < this.E)
+                       {
+                           if ((e_new < 1) && (this.alpha > 0.01)) this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 700000));
+                           this.alpha_txtbx.Text = this.alpha.ToString();
+                           this.E = e_new;
+                       }
+
+      */
+                    if ((Double.IsNaN(this.w[ii])) || (Double.IsInfinity(this.w[ii])) || (this.w[ii] == 0)) this.w[ii] = rnd.NextDouble()/w_size;
                 }
                 this.T = T + this.alpha * delta;
 
@@ -260,7 +262,9 @@ namespace perceptronic
                 if ((e_new) > this.E)
                 {
                     this.T = T - this.alpha * delta;
-                    if ((e_new < 1) && (this.alpha < 0.7)) this.alpha *= (1.0 + ((e_new > 100 ? 1 : e_new) / 1000));
+                    e_new = E_Calc();
+                    this.E = e_new;
+                    if ((e_new < 1) && (this.alpha > 0.00000001)) this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 1000));
                     this.alpha_txtbx.Text = this.alpha.ToString();
                     //this.E = e_new;
                 }
@@ -268,7 +272,7 @@ namespace perceptronic
                 if ((e_new) < this.E)
                 {
                     this.E = e_new;
-                    if ((e_new < 1) && (this.alpha > 0.01)) this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 7000));
+                    if ((e_new < 1) && (this.alpha < 0.6666)) this.alpha *= (1.0 + ((e_new > 100 ? 1 : e_new) / 7000));
                     this.alpha_txtbx.Text = this.alpha.ToString();
                 }
 
