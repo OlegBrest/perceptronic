@@ -21,7 +21,9 @@ namespace perceptronic
 
         int total_elements = 1000;
         etalon_templ[] etalon;
+        etalon_templ[] etalon_digit;
         etalon_templ[] result;
+        etalon_templ[] result_digit;
         etalon_templ[] result_best;
         double[] w;
         double[] w_best;
@@ -36,6 +38,7 @@ namespace perceptronic
         double median = 1;
         double corr = 1;
         Random rnd = new Random();
+        double digital_threshold = 0.7; // threshold for -1;1;0
 
 
         public Form1()
@@ -81,7 +84,9 @@ namespace perceptronic
                 this.result[i].x = i;
                 this.result_best[i].x = i;
                 this.etalon[i].y = 0;
+                this.etalon_digit[i].y = 0;
                 this.result[i].y = 0;
+                this.result_digit[i].y = 0;
                 this.result_best[i].y = 0;
             }
             this.T = 0;
@@ -106,8 +111,11 @@ namespace perceptronic
                 for (int i = 0; i < this.etalon.Length; i++)
                 {
                     this.etalon[i].x = i;
+                    this.etalon_digit[i].x = i;
                     this.result[i].x = i;
+                    this.result_digit[i].x = i;
                     this.result[i].y = 0;
+                    this.result_digit[i].y = 0;
                     this.result_best[i].y = 0;
                 }
 
@@ -210,7 +218,7 @@ namespace perceptronic
                     x_es[ii] = this.etalon[ii + i - w_size].y;
                 }
                 this.result[i].x = this.etalon[i].x;
-                double next = Get_Next(x_es, this.T);
+                double next = Get_Next(x_es, this.T,i);
                 if ((Double.IsNaN(next)) || (Double.IsInfinity(next))) next = 0;
                 double delta = next - this.etalon[i].y;
                 double e_new = E_Calc();
@@ -294,7 +302,7 @@ namespace perceptronic
                             x_best[ii] = this.result_best[ii + s - w_size].y;
                         }
                         this.result_best[s].x = this.etalon[s].x;
-                        double next_b = Get_Next(x_best, this.T_best);
+                        double next_b = Get_Next(x_best, this.T_best,-1);
                         this.result_best[s].y = next_b;
                     }
                 }
@@ -306,7 +314,7 @@ namespace perceptronic
                     this.alpha /= (1.0 + ((e_new > 100 ? 1 : e_new) / 30));
                 }
                 if ((Double.IsNaN(this.T)) || (Double.IsInfinity(this.T))) this.T = 0;
-                next = Get_Next(x_es, this.T);
+                next = Get_Next(x_es, this.T,i);
                 this.result[i].y = next;
             }
             // calc after learning
@@ -317,13 +325,13 @@ namespace perceptronic
                     x_es[ii] = this.result[ii + i - w_size].y;
                 }
                 this.result[i].x = this.etalon[i].x;
-                double next = Get_Next(x_es, this.T);
+                double next = Get_Next(x_es, this.T,i);
                 this.result[i].y = next;
             }
         }
 
         // getting next value by array x_es
-        double Get_Next(double[] x_es, double TT)
+        double Get_Next(double[] x_es, double TT, int position)
         {
             double ret_val = 0;
             int w_size = this.w.Length;
@@ -333,6 +341,16 @@ namespace perceptronic
                 ret_val += x_es[i] * this.w[i];
             }
             ret_val -= TT;
+            if (this.smooth_type_bx.Enabled)
+            {
+                int smooth_type = Convert.ToInt32(this.smooth_type_bx.SelectedIndex);
+                if ((smooth_type == 2) && (position>-1))
+                {
+                    if (ret_val > this.digital_threshold) this.result_digit[position].y = 1;
+                    else if (ret_val < -this.digital_threshold) this.result_digit[position].y = -1;
+                    else this.result_digit[position].y = 0;
+                }
+            }
             return ret_val;
         }
 
